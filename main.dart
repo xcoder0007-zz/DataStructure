@@ -1,7 +1,8 @@
 import "sumOfn.dart";
+import "fibonacci.dart";
 
-void main() { 
-print(calcluteOfN_A(5).toStringAsFixed(0));
+ void main() { 
+print(fibonacci([0,1],15));
 }
 
 
