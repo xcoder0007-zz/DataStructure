@@ -41,9 +41,9 @@ var Sets = function(){
         this.difference = (outSet)=> {
 		let differenceSet = new Sets();
 		let selfSet = this.items();
-			selfSet.forEach((item) => (outSet.itHas(item)  ? differnceSet.add(item) : null));
+			selfSet.forEach((item) => (!outSet.itHas(item)  ? differenceSet.add(item) : null));
 
-		return differnceSet;
+		return differenceSet;
 
 	}
 
@@ -62,6 +62,4 @@ B.add('x');
 A.add('b');
 B.add('b');
 B.add('c');
-console.log(A.items());
-console.log(B.items());
-console.log(B.subset(A));
+console.log(B.difference(A).items());
