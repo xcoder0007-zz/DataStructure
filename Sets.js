@@ -1,7 +1,7 @@
 var Sets = function(){
 	this.collection = [];
 
-	this.itHas = (item) => (this.collection.indexOf(item) !== -1 ? this.collection.indexOf(item) : false);	
+	this.itHas = (item) => (this.collection.indexOf(item) !== -1 ? true : false);	
    
 	this.items = ()=> this.collection;
 	
@@ -15,29 +15,53 @@ var Sets = function(){
 	 }
 		return false;
 	}
+	
+	this.size = ()=> this.collection.length;
 
-	this.union = function(outSet){
-		let self = new Sets();
+	this.union = (outSet) => {
+		let unionSet = new Sets();
 		let selfSetItems = this.items();
 		let outSetItems = outSet.items();
 
-		outSelfItems.forEach((e) => self.add(e));
-		selfSetItems.forEach((e) => outSet.add(e));
+		selfSetItems.forEach((e) => unionSet.add(e));
+		outSetItems.forEach((e) => unionSet.add(e));
 
-		return outSet;
+		return unionSet;
 	}
 
 
+	this.intersection = (outSet)=> {
+		let intersectionSet = new Sets();
+		let selfSet = this.items();
+		selfSet.forEach((item) => (outSet.itHas(item) ? intersectionSet.add(item) : null));
 
+		return intersectionSet;
+	}
+
+        this.difference = (outSet)=> {
+		let differenceSet = new Sets();
+		let selfSet = this.items();
+			selfSet.forEach((item) => (outSet.itHas(item)  ? differnceSet.add(item) : null));
+
+		return differnceSet;
+
+	}
+
+	this.subset = (outSet)=> {
+	let selfSetItems = this.items();
+	return selfSetItems.every((item) => outSet.itHas(item));
+	}
 }
 
-var mySets = new Sets();
-console.log(mySets.add('Hi there'))
-console.log(mySets.add('Hi there'))
-console.log(mySets.add('Hi there'))
-console.log(mySets.add('Hi there'))
-console.log(mySets.add('Unique'))
-console.log(mySets.items())
-console.log(mySets.remove('Unique'))
-console.log(mySets.items())
+const A = new Sets();
+const B = new Sets();
 
+A.add('a');
+B.add('a');
+B.add('x');
+A.add('b');
+B.add('b');
+B.add('c');
+console.log(A.items());
+console.log(B.items());
+console.log(B.subset(A));
