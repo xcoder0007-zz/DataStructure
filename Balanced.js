@@ -9,7 +9,13 @@ var Stack = function (){
 
 	this.Pair = (opened,closed)=> {
 		var list = ['(',')','{','}','[',']'];
-		return  (list.indexOf(opened) === list.indexOf(closed) -1 ? true : false);
+	    if(list.indexOf(opened) === list.indexOf(closed) -1) {
+		  console.log('\x1b[32m',`Closing of ${list[list.indexOf(opened)]}${list[list.indexOf(closed)]} Are good! `);
+		    this.pop();
+	 }
+	  else {
+	 console.log('\x1b[31m',`Closing of ${list[list.indexOf(opened)]}${list[list.indexOf(closed)]} NOT good! `)
+		}
 	}
 
 	this.isBalanced = (exp)=> {
@@ -19,8 +25,7 @@ var Stack = function (){
 
 		else if(exp[i] === ')' || exp[i] === '}' || exp[i] === ']'){
 			if(this.size() === 0) return false;
-		return this.Pair(this.peak(),exp[i]);
-		this.pop();
+		 this.Pair(this.peak(),exp[i]) 
 		}
 		}
 
@@ -42,5 +47,4 @@ var Stack = function (){
 }
 
 var myStack = new Stack();
-console.log(myStack.isBalanced('(}'));
-console.log(myStack.isBalanced('()'));
+console.log(myStack.isBalanced('(){]'));
